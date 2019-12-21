@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="UTF-8" />
+    <title>Snake</title>
+  </head>
+	<style>
+		canvas {display: block; margin: 0 auto;}
+	</style>
+
+	<body>
+		<!--comment-->
+		<canvas id="canvas" width="400" height="400"> </canvas>
+		
+		<script>
+		
+		var canvas, ctx;
+		
+				
+		window.onload = function() {
+	        canvas = document.getElementById("canvas");
+	        ctx = canvas.getContext("2d");
+	        document.addEventListener("keydown", keyDownEvent);
+	        // render X times per second
+	        var x = 9;
+	        var interval = setInterval(draw, 1000 / x);
+      };
+		
+		var defaultTail = 1;
+		var tailSize = defaultTail;
+		var snakeTrail = [];
+		var snakeX = (snakeY = 10);
+		
+		var gridSize = (tileSize = 20);
+		var nextX = (nextY = 0);
+		
+		var appleX = (appleY = 15);
+		
+		var score = 0;
+		
+		function draw(){
+			snakeX += nextX;
+			snakeY += nextY;
+			
+			//check if hits the wall
+			if(snakeX < -1 || snakeX > gridSize|| snakeY < -1 || snakeY > gridSize){
+				alert("You lost! \nYour score was: " + score);
+				document.location.reload();
+			}
+			
