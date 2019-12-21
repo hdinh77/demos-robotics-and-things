@@ -47,4 +47,72 @@
 				alert("You lost! \nYour score was: " + score);
 				document.location.reload();
 			}
+		//check if hits apple
+			if(snakeX == appleX && snakeY == appleY){
+				tailSize++;
+				score++;
+				appleX = Math.floor(Math.random() * gridSize);
+				appleY = Math.floor(Math.random() * gridSize);
+			}
 			
+			
+			//background
+			ctx.fillStyle = "black";
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			
+			//score
+			ctx.font = "12px Arial";
+			ctx.fillStyle = "#64f03a";
+			ctx.fillText("Score: " + score, 10, 15);
+			
+			//paint snake
+			ctx.fillStyle = "#1144bd";
+			for(var i = 0; i < snakeTrail.length; i++){
+				ctx.fillRect(snakeTrail[i].x * tileSize, snakeTrail[i].y * tileSize, tileSize, tileSize);
+				
+				//snake bite itself
+				if(snakeTrail[i].x == snakeX && snakeTrail[i].y == snakeY && score > 5){
+					alert("You lost! \nYour score was: " + score);
+					document.location.reload();	
+				}
+				ctx.fillStyle = "#205ae6";
+			}
+			
+			//paint apple
+			ctx.fillStyle = "red";
+			ctx.fillRect(appleX * tileSize, appleY * tileSize, tileSize, tileSize);
+			
+			//set snake trail
+			snakeTrail.push({x: snakeX, y: snakeY});
+			
+			while(snakeTrail.length > tailSize){
+				snakeTrail.shift();
+			}
+		}
+		
+		
+		
+		function keyDownEvent(e){
+			if(e.keyCode == 37 && nextX != 1){
+				nextX = -1;
+				nextY = 0;
+			}
+			if(e.keyCode == 38 && nextY != 1){
+				nextX = 0;
+				nextY = -1;
+			}
+			if(e.keyCode == 39 && nextX != -1){
+				nextX = 1;
+				nextY = 0;
+			}
+			if(e.keyCode == 40 && nextY != -1){
+				nextX = 0;
+				nextY = 1;
+			}
+		}
+				
+	</script>
+	</body>
+	
+	
+</html>
